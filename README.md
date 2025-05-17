@@ -16,6 +16,10 @@ This project is a website used for image sharing. This webpage is a social accou
 - Media Queries
 - Font-Face
 
+**Deployment**
+
+ - [Deployment Link](https://paige-catellier.github.io/se_project_spots/)
+
 **Video Demonstration**
 
 This video illustrates the hover and cursor effects that have been added to the buttons.

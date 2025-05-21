@@ -22,7 +22,7 @@ This project is a website used for image sharing. This webpage is a social accou
 
 **Video**
 
-- https://drive.google.com/file/d/1_YMH5lmySlKyUBxQuq-SEG8GqqFsQ2a-/view?usp=drive_link 
+- [https://drive.google.com/file/d/1_YMH5lmySlKyUBxQuq-SEG8GqqFsQ2a-/view?usp=drive_link ](https://drive.google.com/file/d/1_YMH5lmySlKyUBxQuq-SEG8GqqFsQ2a-/view?usp=drive_link)
 
 **Demonstration**
 

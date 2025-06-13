@@ -25,6 +25,7 @@
   max-width: 730px;
   width: 100%;
   border-radius: 8px;
+  box-sizing: border-box;
   background-color: #fff;
   padding: 32px 50px;
   position: relative;
@@ -43,6 +44,8 @@
 
 .modal__input {
   display: block;
+  font-size: 20px;
+  line-height: 1;
   margin: 8px 0 0;
   width: 96%;
   padding: 16px 12px;
@@ -69,7 +72,6 @@
 
 .modal__close-btn {
   position: absolute;
-  background-image: url(../images/close.svg);
   width: 40px;
   height: 40px;
   top: 32px;
@@ -81,6 +83,7 @@
   background-repeat: no-repeat;
   opacity: 40%;
   cursor: pointer;
+  padding: 0px;
 }
 
 .modal__close-btn:hover {
@@ -91,10 +94,16 @@
   background-color: #212121;
   color: #fcf5e5;
   border-radius: 8px;
+  border: none;
   max-width: 156px;
   width: 100%;
   padding: 18px 32px;
   font-size: 16px;
+  cursor: pointer;
+}
+
+.modal__save-btn:hover {
+  opacity: 80%;
 }
 
 @media screen and (max-width: 627px) {

@@ -44,10 +44,11 @@
 
 .modal__input {
   display: block;
+  box-sizing: border-box;
   font-size: 20px;
   line-height: 1;
   margin: 8px 0 0;
-  width: 96%;
+  width: 100%;
   padding: 16px 12px;
   border-radius: 8px;
   border: 1px #21212166 solid;
@@ -65,19 +66,20 @@
 
 .modal__label {
   margin: 0 0 32px;
-  font-weight: 500px;
+  font-weight: 500;
   font-size: 16px;
   color: #212121b2;
 }
-/* I am having a difficult time trying to align the close button when the screen size decreases. */
+
 .modal__close-btn {
   position: absolute;
+  background-image: url(../images/close.svg);
   width: 40px;
   height: 40px;
   top: 32px;
   right: 50px;
   border: none;
-  background: transparent;
+  background-color: transparent;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -107,14 +109,31 @@
 }
 
 @media screen and (max-width: 627px) {
+  .modal__container {
+    padding: 22px 12px 12px;
+  }
+
+  .modal__close-btn {
+    top: 22px;
+    right: 12px;
+  }
+
   .modal__title {
     font-weight: 500;
     font-size: 20px;
     margin: 0 0 24px;
   }
 
+  .modal__input {
+    font-size: 16px;
+  }
+
   .modal__input::placeholder {
     font-size: 16px;
+  }
+
+  .modal__label {
+    margin-bottom: 24px;
   }
 
   .modal__save-btn {
@@ -122,3 +141,4 @@
     width: 100%;
   }
 }
+

@@ -132,6 +132,7 @@ editProfileForm.addEventListener("submit", handleEditProfileSubmit);
 
 function handleAddCardSubmit(evt) {
   evt.preventDefault();
+  evt.target.reset();
 
   const inputValues = {
     link: newPostLinkInput.value,

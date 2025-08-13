@@ -68,6 +68,20 @@
   font-size: 20px;
 }
 
+.modal__input_type_error {
+  border: 1px solid #ff000099;
+}
+
+.modal__error {
+  display: block;
+  margin-top: 8px;
+  font: "Poppins";
+  line-height: 18px;
+  font-weight: 500;
+  font-size: 16px;
+  color: #ff0000b2;
+}
+
 .modal__label {
   margin: 0 0 32px;
   font-weight: 500;
@@ -121,6 +135,10 @@
 
 .modal__save-btn:hover {
   opacity: 80%;
+}
+
+.modal__save-btn_error {
+  opacity: 50%;
 }
 
 .modal__image-container {
@@ -201,4 +219,5 @@
     max-width: 288px;
   }
 }
+
 

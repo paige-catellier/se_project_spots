@@ -1,3 +1,10 @@
+import {
+  enableValidation,
+  settings,
+  resetValidation,
+} from "../scripts/validation.js";
+import "./index.css";
+
 const initialCards = [
   {
     name: "Golden Gate Bridge",
@@ -177,3 +184,4 @@ function closeEscapeKey(event) {
     }
   }
 }
+enableValidation(settings);

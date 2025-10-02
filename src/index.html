@@ -13,12 +13,16 @@
   <body>
     <div class="page">
       <header class="header">
-        <img src="./images/logo.svg" alt="Spots Logo" class="header__logo" />
+        <img
+          src="<%=require('./images/logo.svg')%>"
+          alt="Spots Logo"
+          class="header__logo"
+        />
       </header>
       <main class="content">
         <section class="profile page__section">
           <img
-            src="./images/avatar.jpg"
+            src="<%=require('./images/avatar.jpg')%>"
             alt="Profile picture"
             class="profile__avatar"
           />
@@ -28,13 +32,16 @@
             <button type="button" class="profile__edit-btn">
               <img
                 class="profile__edit-btn-img"
-                src="./images/edit-icon.svg"
+                src="<%=require('./images/edit-icon.svg')%>"
                 alt="Pencil icon"
               />Edit Profile
             </button>
           </div>
           <button type="button" class="profile__add-btn">
-            <img src="./images/plus-icon.svg" alt="New post icon" />New Post
+            <img
+              src="<%=require('./images/plus-icon.svg')%>"
+              alt="New post icon"
+            />New Post
           </button>
         </section>
         <section class="cards page__section">

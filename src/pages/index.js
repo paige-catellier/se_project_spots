@@ -4,7 +4,7 @@ import {
   resetValidation,
 } from "../scripts/validation.js";
 import "./index.css";
-import Api from "../scripts/Api.js";
+import Api from "../utils/Api.js";
 
 //const initialCards = [
 //{
@@ -73,12 +73,15 @@ const api = new Api({
   },
 });
 
-api.getInitialCards().then((cards) => {
-  cards.forEach(function (item) {
-    const cardEl = getCardElement(item);
-    cardsList.append(cardEl);
-  });
-});
+api
+  .getInitialCards()
+  .then((cards) => {
+    cards.forEach(function (item) {
+      const cardEl = getCardElement(item);
+      cardsList.append(cardEl);
+    });
+  })
+  .catch(console.error);
 
 const cardTemplate = document
   .querySelector("#card-template")

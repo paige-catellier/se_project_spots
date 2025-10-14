@@ -4,6 +4,7 @@ import {
   resetValidation,
 } from "../scripts/validation.js";
 import "./index.css";
+import "../scripts/Api.js";
 
 const initialCards = [
   {
@@ -63,6 +64,18 @@ const previewModal = document.querySelector("#preview-modal");
 const previewCloseBtn = previewModal.querySelector(".modal__close-btn");
 const previewImageEl = previewModal.querySelector(".modal__image");
 const previewCaption = previewModal.querySelector(".modal__caption");
+
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "1d5bbdd5-18c5-49e5-b7ed-4ff2576b051e",
+    "Content-Type": "application/json",
+  },
+});
+
+api.getInitialCards().then((cards) => {
+  console.log(cards);
+});
 
 const cardTemplate = document
   .querySelector("#card-template")

@@ -121,7 +121,7 @@
   opacity: 40%;
 }
 
-.modal__save-btn {
+.modal__btn {
   background-color: #212121;
   color: #fcf5e5;
   border-radius: 8px;
@@ -133,11 +133,11 @@
   cursor: pointer;
 }
 
-.modal__save-btn:hover {
+.modal__btn:hover {
   opacity: 80%;
 }
 
-.modal__save-btn_error {
+.modal__btn_error {
   opacity: 50%;
 }
 
@@ -208,7 +208,7 @@
     margin-bottom: 24px;
   }
 
-  .modal__save-btn {
+  .modal__btn {
     max-width: none;
     width: 100%;
   }
@@ -219,5 +219,3 @@
     max-width: 288px;
   }
 }
-
-

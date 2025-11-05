@@ -14,7 +14,7 @@
     <div class="page">
       <header class="header">
         <img
-          src="<%=require('./images/logo.svg')%>"
+          src="<%= require('./images/logo.svg') %>"
           alt="Spots Logo"
           class="header__logo"
         />
@@ -105,7 +105,7 @@
                 class="modal__error"
               ></span>
             </label>
-            <button type="submit" class="modal__save-btn">Save</button>
+            <button type="submit" class="modal__btn">Save</button>
           </form>
         </div>
       </div>
@@ -138,7 +138,7 @@
               />
               <span id="card-caption-input-error" class="modal__error"></span>
             </label>
-            <button type="submit" class="modal__save-btn">Save</button>
+            <button type="submit" class="modal__btn">Save</button>
           </form>
         </div>
       </div>
@@ -155,23 +155,36 @@
     </div>
 
     <div class="modal" id="edit-avatar-modal">
-      <div class="modal__avatar-container">
+      <div class="modal__container">
         <button type="button" class="modal__close-btn"></button>
         <h3 class="modal__avatar-title">Edit Avatar</h3>
         <form class="modal__avatar-form" id="edit-avatar-form" novalidate>
-          <label for="avatar-name-input" class="modal__avatar-label">
-            Avatar
+          <label for="profile-avatar-input" class="modal__avatar-label">
+            Profile Picture
             <input
               id="profile-avatar-input"
               type="text"
               class="modal__input"
               name="avatar"
-              placeholder="Insert Profile Photo"
+              placeholder="Insert Avatar Here"
               required
             />
             <span id="profile-avatar-input-error" class="modal__error"></span>
           </label>
-          <button type="submit" class="modal__save-btn">Save</button>
+          <button type="submit" class="modal__btn">Save</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="modal" id="delete-modal">
+      <div class="modal__container">
+        <button type="button" class="modal__close-btn"></button>
+        <h3 class="modal__delete-title">
+          Are you sure you want to delete this image?
+        </h3>
+        <form class="modal__delete-form" id="delete-form" novalidate>
+          <button type="submit" class="modal__btn">Delete</button>
+          <button type="button" class="modal__btn">Cancel</button>
         </form>
       </div>
     </div>

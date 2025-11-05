@@ -72,14 +72,16 @@ const api = new Api({
     "Content-Type": "application/json",
   },
 });
-
+// REQUESTS destructure the second item in the callback of the .then
 api
-  .getInitialCards()
-  .then((cards) => {
-    cards.forEach(function (item) {
+  .getAppInfo()
+  .then(([cards]) => {
+    cards.forEach((item) => {
       const cardEl = getCardElement(item);
       cardsList.append(cardEl);
     });
+    // REQUESTS handle users info: set src to avatar img,
+    // set textcontent of both the text elements
   })
   .catch(console.error);
 
@@ -156,9 +158,17 @@ newPostCloseBtn.addEventListener("click", function () {
 
 function handleEditProfileSubmit(evt) {
   evt.preventDefault();
-  profileNameEl.textContent = editProfileNameInput.value;
-  profileDescriptionEl.textContent = editProfileDescriptionInput.value;
-  closeModal(editProfileModal);
+  api
+    .editUserInfo({
+      name: editProfileNameInput.value,
+      about: editProfileDescriptionInput.value,
+    })
+    .then((data) => {
+      profileNameEl.textContent = data.name;
+      profileDescriptionEl.textContent = data.about;
+      closeModal(editProfileModal);
+    })
+    .catch(console.error);
 }
 
 editProfileForm.addEventListener("submit", handleEditProfileSubmit);

@@ -47,6 +47,7 @@ const editProfileNameInput = editProfileModal.querySelector(
 const editProfileDescriptionInput = editProfileModal.querySelector(
   "#profile-description-input"
 );
+const avatarModalBtn = document.querySelector(".profile__avatar-btn");
 
 const newPostBtn = document.querySelector(".profile__add-btn");
 const newPostModal = document.querySelector("#new-post-modal");
@@ -64,6 +65,14 @@ const previewModal = document.querySelector("#preview-modal");
 const previewCloseBtn = previewModal.querySelector(".modal__close-btn");
 const previewImageEl = previewModal.querySelector(".modal__image");
 const previewCaption = previewModal.querySelector(".modal__caption");
+
+//Avatar
+//const avatarEditBtn = document.querySelector(".profile__edit-btn");
+const editAvatarModal = document.querySelector("#edit-avatar-modal");
+const avatarCloseBtn = editAvatarModal.querySelector(".modal__close-btn");
+const avatarForm = editAvatarModal.querySelector(".modal__avatar-form");
+const avatarSaveBtn = editAvatarModal.querySelector(".modal__save-btn");
+const avatarLinkInput = editAvatarModal.querySelector("#profile-avatar-input");
 
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
@@ -198,6 +207,10 @@ modals.forEach((modal) => {
       closeModal(modal);
     }
   });
+});
+
+avatarModalBtn.addEventListener("click", function () {
+  openModal(editAvatarModal);
 });
 
 function closeEscapeKey(event) {

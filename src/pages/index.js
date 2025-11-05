@@ -47,6 +47,7 @@ const editProfileNameInput = editProfileModal.querySelector(
 const editProfileDescriptionInput = editProfileModal.querySelector(
   "#profile-description-input"
 );
+const avatarModalBtn = document.querySelector(".profile__avatar-btn");
 
 const newPostBtn = document.querySelector(".profile__add-btn");
 const newPostModal = document.querySelector("#new-post-modal");
@@ -64,6 +65,20 @@ const previewModal = document.querySelector("#preview-modal");
 const previewCloseBtn = previewModal.querySelector(".modal__close-btn");
 const previewImageEl = previewModal.querySelector(".modal__image");
 const previewCaption = previewModal.querySelector(".modal__caption");
+
+//Avatar
+//const avatarEditBtn = document.querySelector(".profile__edit-btn");
+const editAvatarModal = document.querySelector("#edit-avatar-modal");
+const avatarCloseBtn = editAvatarModal.querySelector(".modal__close-btn");
+const avatarImg = document.querySelector(".profile__avatar");
+// add form
+const avatarSaveBtn = editAvatarModal.querySelector(".modal__save-btn");
+const avatarLinkInput = editAvatarModal.querySelector("#profile-avatar-input");
+
+//Delete
+// style delete buttons
+const deleteModal = document.querySelector("#delete-modal");
+const deleteModalCloseBtn = deleteModal.querySelector(".modal__close-btn");
 
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
@@ -106,7 +121,11 @@ function getCardElement(data) {
 
   const cardDeleteBtn = cardElement.querySelector(".card__delete-btn");
   cardDeleteBtn.addEventListener("click", () => {
-    cardElement.remove();
+    openModal(deleteModal);
+  });
+
+  deleteModalCloseBtn.addEventListener("click", () => {
+    closeModal(deleteModal);
   });
 
   cardImage.addEventListener("click", () => {
@@ -171,6 +190,19 @@ function handleEditProfileSubmit(evt) {
     .catch(console.error);
 }
 
+function handleAvatarSubmit(evt) {
+  evt.preventDefault();
+  api
+    .editAvatarInfo(avatarLinkInput.value)
+    .then((data) => {
+      avatarImg.src = data.avatar;
+      closeModal(editAvatarModal);
+      resetValidation(avatarLinkInput);
+    })
+    .catch(console.error);
+}
+//image isnt displaying when submitted
+
 editProfileForm.addEventListener("submit", handleEditProfileSubmit);
 
 function handleAddCardSubmit(evt) {
@@ -199,6 +231,15 @@ modals.forEach((modal) => {
     }
   });
 });
+
+avatarModalBtn.addEventListener("click", function () {
+  openModal(editAvatarModal);
+});
+
+avatarCloseBtn.addEventListener("click", function () {
+  closeModal(editAvatarModal);
+});
+avatarSaveBtn.addEventListener("click", handleAvatarSubmit);
 
 function closeEscapeKey(event) {
   if (event.key === "Escape") {

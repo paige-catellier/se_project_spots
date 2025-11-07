@@ -66,6 +66,8 @@ const previewCloseBtn = previewModal.querySelector(".modal__close-btn");
 const previewImageEl = previewModal.querySelector(".modal__image");
 const previewCaption = previewModal.querySelector(".modal__caption");
 
+let selectedCard, selectedCardId;
+
 //Avatar
 //const avatarEditBtn = document.querySelector(".profile__edit-btn");
 const editAvatarModal = document.querySelector("#edit-avatar-modal");
@@ -79,6 +81,7 @@ const avatarLinkInput = editAvatarModal.querySelector("#profile-avatar-input");
 // style delete buttons
 const deleteModal = document.querySelector("#delete-modal");
 const deleteModalCloseBtn = deleteModal.querySelector(".modal__close-btn");
+const deleteForm - deleteModal.querySelector(".modal__delete-form");
 
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
@@ -105,6 +108,16 @@ const cardTemplate = document
   .content.querySelector(".card");
 const cardsList = document.querySelector(".cards__list");
 
+function handleDeleteCard(cardElement, cardId) {
+  selectedCard = cardElement;
+  selectedCardId = cardId;
+  openModal(deleteModal);
+}
+
+function handleLikeBtn(evt) {
+  cardLikeBtn.classList.toggle("card__like-btn_active");
+}
+
 function getCardElement(data) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardTitle = cardElement.querySelector(".card__title");
@@ -115,14 +128,12 @@ function getCardElement(data) {
   cardTitle.textContent = data.name;
 
   const cardLikeBtn = cardElement.querySelector(".card__like-btn");
-  cardLikeBtn.addEventListener("click", () => {
-    cardLikeBtn.classList.toggle("card__like-btn_active");
-  });
+  cardLikeBtn.addEventListener("click", handleLikeBtn);
 
   const cardDeleteBtn = cardElement.querySelector(".card__delete-btn");
-  cardDeleteBtn.addEventListener("click", () => {
-    openModal(deleteModal);
-  });
+  cardDeleteBtn.addEventListener("click", (evt) =>
+    handleDeleteCard(cardElement, data._id)
+  );
 
   deleteModalCloseBtn.addEventListener("click", () => {
     closeModal(deleteModal);
@@ -213,12 +224,19 @@ function handleAddCardSubmit(evt) {
     name: newPostCaptionInput.value,
   };
 
-  const cardElement = getCardElement(inputValues);
-  cardsList.prepend(cardElement);
+  api
+    .addCard(inputValues)
+    .then((newCardData) => {
+      const cardElement = getCardElement(newCardData);
+      cardsList.prepend(cardElement);
 
-  evt.target.reset();
-  disableButton(postSubmitBtn, settings);
-  closeModal(newPostModal);
+      evt.target.reset();
+      disableButton(postSubmitBtn, settings);
+      closeModal(newPostModal);
+    })
+    .catch((err) => {
+      console.error("Error adding card:", err);
+    });
 }
 
 newPostElement.addEventListener("submit", handleAddCardSubmit);
@@ -239,7 +257,9 @@ avatarModalBtn.addEventListener("click", function () {
 avatarCloseBtn.addEventListener("click", function () {
   closeModal(editAvatarModal);
 });
-avatarSaveBtn.addEventListener("click", handleAvatarSubmit);
+avatarSaveBtn.addEventListener("submit", handleAvatarSubmit);
+
+deleteForm.addEventListener("submit", handleDeleteCard)
 
 function closeEscapeKey(event) {
   if (event.key === "Escape") {

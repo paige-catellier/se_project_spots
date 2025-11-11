@@ -50,6 +50,7 @@ const toggleButtonState = (inputList, buttonElement, config) => {
 };
 
 const disableButton = (buttonElement, config) => {
+  console.log("config:", config);
   buttonElement.classList.add(config.inactiveButtonClass);
   buttonElement.disabled = true;
 };

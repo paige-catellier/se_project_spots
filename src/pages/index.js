@@ -76,12 +76,13 @@ const avatarImg = document.querySelector(".profile__avatar");
 // add form
 const avatarSaveBtn = editAvatarModal.querySelector(".modal__save-btn");
 const avatarLinkInput = editAvatarModal.querySelector("#profile-avatar-input");
+const avatarForm = editAvatarModal.querySelector(".modal__avatar-form");
 
 //Delete
 // style delete buttons
 const deleteModal = document.querySelector("#delete-modal");
 const deleteModalCloseBtn = deleteModal.querySelector(".modal__close-btn");
-const deleteForm - deleteModal.querySelector(".modal__delete-form");
+const deleteForm = deleteModal.querySelector(".modal__delete-form");
 
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
@@ -108,14 +109,23 @@ const cardTemplate = document
   .content.querySelector(".card");
 const cardsList = document.querySelector(".cards__list");
 
-function handleDeleteCard(cardElement, cardId) {
+function handleDeleteCard(cardElement, data) {
   selectedCard = cardElement;
-  selectedCardId = cardId;
+  selectedCardId = data._id;
   openModal(deleteModal);
 }
 
-function handleLikeBtn(evt) {
-  cardLikeBtn.classList.toggle("card__like-btn_active");
+function handleLikeBtn(evt, data) {
+  //evt.target.classList.toggle("card__like-btn_active");
+
+  const isLiked = evt.target.classList.contains("card__like-btn_active");
+
+  api
+    .handleLikeBtn(data._id, isLiked)
+    .then(() => {
+      evt.target.classList.toggle("card__like-btn_active");
+    })
+    .catch(console.error);
 }
 
 function getCardElement(data) {
@@ -128,11 +138,14 @@ function getCardElement(data) {
   cardTitle.textContent = data.name;
 
   const cardLikeBtn = cardElement.querySelector(".card__like-btn");
-  cardLikeBtn.addEventListener("click", handleLikeBtn);
+  if (data.isLiked) {
+    cardLikeBtn.classList.add("card__like-btn_active");
+  }
+  cardLikeBtn.addEventListener("click", (evt) => handleLikeBtn(evt, data));
 
   const cardDeleteBtn = cardElement.querySelector(".card__delete-btn");
-  cardDeleteBtn.addEventListener("click", (evt) =>
-    handleDeleteCard(cardElement, data._id)
+  cardDeleteBtn.addEventListener("click", () =>
+    handleDeleteCard(cardElement, data)
   );
 
   deleteModalCloseBtn.addEventListener("click", () => {
@@ -151,6 +164,17 @@ function getCardElement(data) {
   });
 
   return cardElement;
+}
+
+function handleDeleteSubmit(evt) {
+  evt.preventDefault();
+  api
+    .deleteCard(selectedCardId)
+    .then(() => {
+      cardElement.remove();
+      closeModal(deleteModal);
+    })
+    .catch(console.error);
 }
 
 function openModal(modal) {
@@ -257,9 +281,10 @@ avatarModalBtn.addEventListener("click", function () {
 avatarCloseBtn.addEventListener("click", function () {
   closeModal(editAvatarModal);
 });
-avatarSaveBtn.addEventListener("submit", handleAvatarSubmit);
 
-deleteForm.addEventListener("submit", handleDeleteCard)
+avatarForm.addEventListener("submit", handleAvatarSubmit);
+
+deleteForm.addEventListener("submit", handleDeleteSubmit);
 
 function closeEscapeKey(event) {
   if (event.key === "Escape") {

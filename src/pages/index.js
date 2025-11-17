@@ -1,3 +1,7 @@
+//Notes: As I was working on this project, I was merging the branches on GitHub. I did not know that I shouldn't be
+// doing this until I got to the last video (10). I will be recording the video pitch after the first iteration since
+// there will be edits/changes to be made. Thank you.
+
 import {
   enableValidation,
   settings,
@@ -5,37 +9,6 @@ import {
 } from "../scripts/validation.js";
 import "./index.css";
 import Api from "../utils/Api.js";
-
-//const initialCards = [
-//{
-// name: "Golden Gate Bridge",
-//link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/7-photo-by-griffin-wooldridge-from-pexels.jpg",
-//},
-//{
-//name: "Val Thorens",
-// link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg",
-// },
-//{
-// name: "Restaurant terrace",
-//  link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/2-photo-by-ceiline-from-pexels.jpg",
-// },
-//{
-// name: "An outdoor cafe",
-// link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/3-photo-by-tubanur-dogan-from-pexels.jpg",
-// },
-//{
-//name: "A very long bridge, over the forest and through the trees",
-// link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/4-photo-by-maurice-laschet-from-pexels.jpg",
-// },
-// {
-// name: "Tunnel with morning light",
-// link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/5-photo-by-van-anh-nguyen-from-pexels.jpg",
-//},
-// {
-//name: "Mountain house",
-// link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
-//},
-//];
 
 const editProfileBtn = document.querySelector(".profile__edit-btn");
 const editProfileModal = document.querySelector("#edit-profile-modal");
@@ -69,7 +42,6 @@ const previewCaption = previewModal.querySelector(".modal__caption");
 let selectedCard, selectedCardId;
 
 //Avatar
-//const avatarEditBtn = document.querySelector(".profile__edit-btn");
 const editAvatarModal = document.querySelector("#edit-avatar-modal");
 const avatarCloseBtn = editAvatarModal.querySelector(".modal__close-btn");
 const avatarImg = document.querySelector(".profile__avatar");
@@ -79,10 +51,14 @@ const avatarLinkInput = editAvatarModal.querySelector("#profile-avatar-input");
 const avatarForm = editAvatarModal.querySelector(".modal__avatar-form");
 
 //Delete
-// style delete buttons
 const deleteModal = document.querySelector("#delete-modal");
 const deleteModalCloseBtn = deleteModal.querySelector(".modal__close-btn");
 const deleteForm = deleteModal.querySelector(".modal__delete-form");
+
+const cardTemplate = document
+  .querySelector("#card-template")
+  .content.querySelector(".card");
+const cardsList = document.querySelector(".cards__list");
 
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
@@ -94,18 +70,16 @@ const api = new Api({
 
 api
   .getAppInfo()
-  .then(([cards]) => {
+  .then(([cards, user]) => {
     cards.forEach((item) => {
       const cardEl = getCardElement(item);
       cardsList.append(cardEl);
     });
+    profileNameEl.textContent = user.name;
+    profileDescriptionEl.textContent = user.about;
+    avatarImg.src = user.avatar;
   })
   .catch(console.error);
-
-const cardTemplate = document
-  .querySelector("#card-template")
-  .content.querySelector(".card");
-const cardsList = document.querySelector(".cards__list");
 
 function handleDeleteCard(cardElement, data) {
   selectedCard = cardElement;
@@ -247,6 +221,8 @@ function handleAvatarSubmit(evt) {
   const submitBtn = evt.submitter;
   const originalText = submitBtn.textContent;
 
+  console.log("Avatar URL being sent:", avatarLinkInput.value);
+
   renderLoading(true, submitBtn, originalText, "Saving...");
 
   api
@@ -254,14 +230,13 @@ function handleAvatarSubmit(evt) {
     .then((data) => {
       avatarImg.src = data.avatar;
       closeModal(editAvatarModal);
-      resetValidation(avatarLinkInput);
+      resetValidation(avatarLinkInput, avatarForm, enableValidation);
     })
     .catch(console.error)
     .finally(() => {
       renderLoading(false, submitBtn, originalText);
     });
 }
-//image isnt displaying when submitted
 
 editProfileForm.addEventListener("submit", handleEditProfileSubmit);
 

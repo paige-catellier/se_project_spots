@@ -1,4 +1,4 @@
-//Notes: As I was working on this project, I was merging the branches on GitHub. I did not know that I shouldn't be
+// Notes: As I was working on this project, I was merging the branches on GitHub. I did not know that I shouldn't be
 // doing this until I got to the last video (10). I will be recording the video pitch after the first iteration since
 // there will be edits/changes to be made. Thank you.
 

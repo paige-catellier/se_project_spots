@@ -54,7 +54,7 @@ const newPostModal = document.querySelector("#new-post-modal");
 const newPostCloseBtn = newPostModal.querySelector(".modal__close-btn");
 
 const newPostElement = newPostModal.querySelector(".modal__form");
-const postSubmitBtn = newPostElement.querySelector(".modal__btn");
+const postSubmitBtn = newPostElement.querySelector(".modal__save-btn");
 const newPostLinkInput = newPostModal.querySelector("#card-image-input");
 const newPostCaptionInput = newPostModal.querySelector("#card-caption-input");
 
@@ -74,7 +74,7 @@ const editAvatarModal = document.querySelector("#edit-avatar-modal");
 const avatarCloseBtn = editAvatarModal.querySelector(".modal__close-btn");
 const avatarImg = document.querySelector(".profile__avatar");
 // add form
-const avatarSaveBtn = editAvatarModal.querySelector(".modal__btn");
+const avatarSaveBtn = editAvatarModal.querySelector(".modal__save-btn");
 const avatarLinkInput = editAvatarModal.querySelector("#profile-avatar-input");
 const avatarForm = editAvatarModal.querySelector(".modal__avatar-form");
 
@@ -116,6 +116,8 @@ function handleDeleteCard(cardElement, data) {
 }
 
 function handleLikeBtn(evt, data) {
+  //evt.target.classList.toggle("card__like-btn_active");
+
   const isLiked = evt.target.classList.contains("card__like-btn_active");
 
   api
@@ -166,24 +168,13 @@ function getCardElement(data) {
 
 function handleDeleteSubmit(evt) {
   evt.preventDefault();
-
-  const submitBtn = evt.submitter;
-  const originalText = submitBtn.textContent;
-
-  submitBtn.textContent = "Deleting...";
-  submitBtn.disabled = true;
-
   api
     .deleteCard(selectedCardId)
     .then(() => {
-      selectedCard.remove();
+      cardElement.remove();
       closeModal(deleteModal);
     })
-    .catch(console.error)
-    .finally(() => {
-      submitBtn.textContent = originalText;
-      submitBtn.disabled = false;
-    });
+    .catch(console.error);
 }
 
 function openModal(modal) {
@@ -221,12 +212,6 @@ newPostCloseBtn.addEventListener("click", function () {
 
 function handleEditProfileSubmit(evt) {
   evt.preventDefault();
-
-  const submitBtn = evt.submitter;
-  const originalText = submitBtn.textContent;
-
-  renderLoading(true, submitBtn, originalText, "Saving...");
-
   api
     .editUserInfo({
       name: editProfileNameInput.value,
@@ -237,20 +222,11 @@ function handleEditProfileSubmit(evt) {
       profileDescriptionEl.textContent = data.about;
       closeModal(editProfileModal);
     })
-    .catch(console.error)
-    .finally(() => {
-      renderLoading(false, submitBtn, originalText);
-    });
+    .catch(console.error);
 }
 
 function handleAvatarSubmit(evt) {
   evt.preventDefault();
-
-  const submitBtn = evt.submitter;
-  const originalText = submitBtn.textContent;
-
-  renderLoading(true, submitBtn, originalText, "Saving...");
-
   api
     .editAvatarInfo(avatarLinkInput.value)
     .then((data) => {
@@ -258,10 +234,7 @@ function handleAvatarSubmit(evt) {
       closeModal(editAvatarModal);
       resetValidation(avatarLinkInput);
     })
-    .catch(console.error)
-    .finally(() => {
-      renderLoading(false, submitBtn, originalText);
-    });
+    .catch(console.error);
 }
 //image isnt displaying when submitted
 
@@ -275,11 +248,6 @@ function handleAddCardSubmit(evt) {
     name: newPostCaptionInput.value,
   };
 
-  const submitBtn = evt.submitter;
-  const originalText = submitBtn.textContent;
-
-  renderLoading(true, submitBtn, originalText, "Saving...");
-
   api
     .addCard(inputValues)
     .then((newCardData) => {
@@ -292,9 +260,6 @@ function handleAddCardSubmit(evt) {
     })
     .catch((err) => {
       console.error("Error adding card:", err);
-    })
-    .finally(() => {
-      renderLoading(false, submitBtn, originalText);
     });
 }
 
@@ -320,21 +285,6 @@ avatarCloseBtn.addEventListener("click", function () {
 avatarForm.addEventListener("submit", handleAvatarSubmit);
 
 deleteForm.addEventListener("submit", handleDeleteSubmit);
-
-function renderLoading(
-  isLoading,
-  button,
-  originalText = "Save",
-  loadingText = "Saving..."
-) {
-  if (isLoading) {
-    button.textContent = loadingText;
-    button.disabled = true;
-  } else {
-    button.textContent = originalText;
-    button.disabled = false;
-  }
-}
 
 function closeEscapeKey(event) {
   if (event.key === "Escape") {

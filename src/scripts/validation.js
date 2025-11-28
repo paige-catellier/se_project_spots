@@ -40,11 +40,6 @@ const hasInvalidInput = (inputList, config) => {
   });
 };
 
-const disableButton = (buttonElement, config) => {
-  buttonElement.classList.add(config.inactiveButtonClass);
-  buttonElement.disabled = true;
-};
-
 const toggleButtonState = (inputList, buttonElement, config) => {
   if (hasInvalidInput(inputList)) {
     disableButton(buttonElement, config);
@@ -52,6 +47,12 @@ const toggleButtonState = (inputList, buttonElement, config) => {
     buttonElement.disabled = false;
     buttonElement.classList.remove(config.inactiveButtonClass);
   }
+};
+
+const disableButton = (buttonElement, config) => {
+  console.log("config:", config);
+  buttonElement.classList.add(config.inactiveButtonClass);
+  buttonElement.disabled = true;
 };
 
 export const resetValidation = (formElement, inputList, config) => {

@@ -89,6 +89,9 @@ class Api {
       return Promise.reject(`Error: ${res.status}`);
     });
   }
+
+  // REQUESTS create another method, getUserInfo (similar to getintitialcards,
+  // different base url), call in it in getappinfo array
 }
 
 export default Api;

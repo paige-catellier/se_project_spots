@@ -91,7 +91,7 @@ const api = new Api({
     "Content-Type": "application/json",
   },
 });
-
+// REQUESTS destructure the second item in the callback of the .then
 api
   .getAppInfo()
   .then(([cards]) => {
@@ -99,6 +99,8 @@ api
       const cardEl = getCardElement(item);
       cardsList.append(cardEl);
     });
+    // REQUESTS handle users info: set src to avatar img,
+    // set textcontent of both the text elements
   })
   .catch(console.error);
 

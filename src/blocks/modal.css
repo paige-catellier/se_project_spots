@@ -133,30 +133,6 @@
   cursor: pointer;
 }
 
-.modal__delete-btn {
-  background-color: #ff6565;
-  color: black;
-  border-radius: 8px;
-  border: none;
-  max-width: 156px;
-  width: 100%;
-  padding: 18px 32px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.modal__cancel-btn {
-  background-color: white;
-  color: black;
-  border-radius: 8px;
-  border: 1px solid black;
-  max-width: 156px;
-  width: 100%;
-  padding: 18px 32px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
 .modal__btn:hover {
   opacity: 80%;
 }

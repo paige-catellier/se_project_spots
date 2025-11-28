@@ -136,21 +136,8 @@
 
   .profile__avatar-btn {
     visibility: visible;
-    width: 23px;
-    height: 23px;
-    bottom: 0;
-    right: 0;
-    margin: 0 5px 20px;
-    border-radius: 6px;
   }
-
-  .profile__edit-icon {
-    padding: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+  /* finish avatar button styles */
 
   .profile__avatar-btn::after {
     content: "";

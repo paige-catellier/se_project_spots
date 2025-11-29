@@ -74,23 +74,6 @@ api
   })
   .catch(console.error);
 
-function handleDeleteCard(cardElement, data) {
-  selectedCard = cardElement;
-  selectedCardId = data._id;
-  openModal(deleteModal);
-}
-
-function handleLikeBtn(evt, data) {
-  const isLiked = evt.target.classList.contains("card__like-btn_active");
-
-  api
-    .handleLikeBtn(data._id, isLiked)
-    .then(() => {
-      evt.target.classList.toggle("card__like-btn_active");
-    })
-    .catch(console.error);
-}
-
 function getCardElement(data) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardTitle = cardElement.querySelector(".card__title");

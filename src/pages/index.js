@@ -207,6 +207,64 @@ function handleEditProfileSubmit(evt) {
     });
 }
 
+function handleAvatarSubmit(evt) {
+  evt.preventDefault();
+
+  const submitBtn = evt.submitter;
+  const originalText = submitBtn.textContent;
+
+  console.log("Avatar URL being sent:", avatarLinkInput.value);
+
+  renderLoading(true, submitBtn, originalText, "Saving...");
+
+  api
+    .editAvatarInfo(avatarLinkInput.value)
+    .then((data) => {
+      avatarImg.src = data.avatar;
+      closeModal(editAvatarModal);
+      resetValidation(avatarLinkInput, avatarForm, enableValidation);
+    })
+    .catch(console.error)
+    .finally(() => {
+      renderLoading(false, submitBtn, originalText);
+    });
+}
+
+editProfileForm.addEventListener("submit", handleEditProfileSubmit);
+
+function handleAddCardSubmit(evt) {
+  evt.preventDefault();
+
+  const inputValues = {
+    link: newPostLinkInput.value,
+    name: newPostCaptionInput.value,
+  };
+
+  const submitBtn = evt.submitter;
+  const originalText = submitBtn.textContent;
+
+  renderLoading(true, submitBtn, originalText, "Saving...");
+
+  api
+    .addCard(inputValues)
+    .then((newCardData) => {
+      const cardElement = getCardElement(newCardData);
+      cardsList.prepend(cardElement);
+
+      evt.target.reset();
+      disableButton(postSubmitBtn, settings);
+      closeModal(newPostModal);
+    })
+    .catch((err) => {
+      console.error("Error adding card:", err);
+    })
+    .finally(() => {
+      renderLoading(false, submitBtn, originalText);
+    });
+}
+
+newPostElement.addEventListener("submit", handleAddCardSubmit);
+
 const modals = document.querySelectorAll(".modal");
 modals.forEach((modal) => {
   modal.addEventListener("click", (event) => {

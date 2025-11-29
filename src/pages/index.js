@@ -1,9 +1,3 @@
-// Notes: As I was working on this project, I was merging the branches. I now know that this is not what I was supposed to do.
-// I did reach out to a tutor to try to rectify this situation but it did not work.
-// This issue has been setting me back, I am hoping to get this project reviewed and edited so that I can complete Sprint 9.
-// I will be recording the video pitch after the first iteration since
-// there will be edits/changes to be made. Thank you.
-
 import {
   enableValidation,
   settings,

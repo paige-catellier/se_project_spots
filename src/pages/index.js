@@ -274,6 +274,33 @@ modals.forEach((modal) => {
   });
 });
 
+avatarModalBtn.addEventListener("click", function () {
+  openModal(editAvatarModal);
+});
+
+avatarCloseBtn.addEventListener("click", function () {
+  closeModal(editAvatarModal);
+});
+
+avatarForm.addEventListener("submit", handleAvatarSubmit);
+
+deleteForm.addEventListener("submit", handleDeleteSubmit);
+
+function renderLoading(
+  isLoading,
+  button,
+  originalText = "Save",
+  loadingText = "Saving..."
+) {
+  if (isLoading) {
+    button.textContent = loadingText;
+    button.disabled = true;
+  } else {
+    button.textContent = originalText;
+    button.disabled = false;
+  }
+}
+
 function closeEscapeKey(event) {
   if (event.key === "Escape") {
     const modalOpen = document.querySelector(".modal_is-opened");

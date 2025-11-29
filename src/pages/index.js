@@ -128,28 +128,6 @@ function getCardElement(data) {
   return cardElement;
 }
 
-function handleDeleteSubmit(evt) {
-  evt.preventDefault();
-
-  const submitBtn = evt.submitter;
-  const originalText = submitBtn.textContent;
-
-  submitBtn.textContent = "Deleting...";
-  submitBtn.disabled = true;
-
-  api
-    .deleteCard(selectedCardId)
-    .then(() => {
-      selectedCard.remove();
-      closeModal(deleteModal);
-    })
-    .catch(console.error)
-    .finally(() => {
-      submitBtn.textContent = originalText;
-      submitBtn.disabled = false;
-    });
-}
-
 function openModal(modal) {
   modal.classList.add("modal_is-opened");
   document.addEventListener("keydown", closeEscapeKey);
@@ -182,30 +160,6 @@ newPostBtn.addEventListener("click", function () {
 newPostCloseBtn.addEventListener("click", function () {
   closeModal(newPostModal);
 });
-
-function handleEditProfileSubmit(evt) {
-  evt.preventDefault();
-
-  const submitBtn = evt.submitter;
-  const originalText = submitBtn.textContent;
-
-  renderLoading(true, submitBtn, originalText, "Saving...");
-
-  api
-    .editUserInfo({
-      name: editProfileNameInput.value,
-      about: editProfileDescriptionInput.value,
-    })
-    .then((data) => {
-      profileNameEl.textContent = data.name;
-      profileDescriptionEl.textContent = data.about;
-      closeModal(editProfileModal);
-    })
-    .catch(console.error)
-    .finally(() => {
-      renderLoading(false, submitBtn, originalText);
-    });
-}
 
 function handleAvatarSubmit(evt) {
   evt.preventDefault();

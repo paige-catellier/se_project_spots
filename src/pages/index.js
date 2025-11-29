@@ -37,16 +37,13 @@ const previewCaption = previewModal.querySelector(".modal__caption");
 
 let selectedCard, selectedCardId;
 
-//Avatar
 const editAvatarModal = document.querySelector("#edit-avatar-modal");
 const avatarCloseBtn = editAvatarModal.querySelector(".modal__close-btn");
 const avatarImg = document.querySelector(".profile__avatar");
-// add form
-const avatarSaveBtn = editAvatarModal.querySelector(".modal__btn");
+
 const avatarLinkInput = editAvatarModal.querySelector("#profile-avatar-input");
 const avatarForm = editAvatarModal.querySelector(".modal__avatar-form");
 
-//Delete
 const deleteModal = document.querySelector("#delete-modal");
 const deleteModalCloseBtn = deleteModal.querySelector(".modal__close-btn");
 const deleteForm = deleteModal.querySelector(".modal__delete-form");
@@ -55,44 +52,6 @@ const cardTemplate = document
   .querySelector("#card-template")
   .content.querySelector(".card");
 const cardsList = document.querySelector(".cards__list");
-
-const api = new Api({
-  baseUrl: "https://around-api.en.tripleten-services.com/v1",
-  headers: {
-    authorization: "1d5bbdd5-18c5-49e5-b7ed-4ff2576b051e",
-    "Content-Type": "application/json",
-  },
-});
-
-api
-  .getAppInfo()
-  .then(([cards, user]) => {
-    cards.forEach((item) => {
-      const cardEl = getCardElement(item);
-      cardsList.append(cardEl);
-    });
-    profileNameEl.textContent = user.name;
-    profileDescriptionEl.textContent = user.about;
-    avatarImg.src = user.avatar;
-  })
-  .catch(console.error);
-
-function handleDeleteCard(cardElement, data) {
-  selectedCard = cardElement;
-  selectedCardId = data._id;
-  openModal(deleteModal);
-}
-
-function handleLikeBtn(evt, data) {
-  const isLiked = evt.target.classList.contains("card__like-btn_active");
-
-  api
-    .handleLikeBtn(data._id, isLiked)
-    .then(() => {
-      evt.target.classList.toggle("card__like-btn_active");
-    })
-    .catch(console.error);
-}
 
 function getCardElement(data) {
   const cardElement = cardTemplate.cloneNode(true);

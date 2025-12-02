@@ -62,6 +62,18 @@
   border: 1px #21212166 solid;
 }
 
+.modal__avatar-input {
+  display: block;
+  box-sizing: border-box;
+  font-size: 20px;
+  line-height: 1;
+  margin: 8px 0 32px;
+  width: 100%;
+  padding: 16px 12px;
+  border-radius: 8px;
+  border: 1px #21212166 solid;
+}
+
 .modal__input:hover {
   border: 1px #212121 solid;
   cursor: pointer;
@@ -252,6 +264,26 @@
   .modal__close-btn {
     top: 22px;
     right: 12px;
+  }
+
+  .profile__avatar-container {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+  }
+
+  .modal__container-delete {
+    padding: 22px 12px 12px;
+  }
+
+  .modal__delete-close-btn {
+    top: -50px;
+    right: -5px;
+  }
+
+  .modal__delete-form {
+    flex-direction: column;
+    align-items: center;
   }
 
   .modal__close-btn_type_preview {

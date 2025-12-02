@@ -230,7 +230,7 @@ function handleAvatarSubmit(evt) {
     .then((data) => {
       avatarImg.src = data.avatar;
       closeModal(editAvatarModal);
-      resetValidation(avatarLinkInput, avatarForm, enableValidation);
+      resetValidation(avatarForm, [avatarLinkInput], settings);
     })
     .catch(console.error)
     .finally(() => {

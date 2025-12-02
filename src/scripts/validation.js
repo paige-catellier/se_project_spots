@@ -34,13 +34,13 @@ const checkInputValidity = (formElement, inputElement, config) => {
   }
 };
 
-const hasInvalidInput = (inputList, config) => {
+const hasInvalidInput = (inputList) => {
   return inputList.some((inputElement) => {
     return !inputElement.validity.valid;
   });
 };
 
-const disableButton = (buttonElement, config) => {
+export const disableButton = (buttonElement, config) => {
   buttonElement.classList.add(config.inactiveButtonClass);
   buttonElement.disabled = true;
 };

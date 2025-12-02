@@ -2,6 +2,7 @@ import {
   enableValidation,
   settings,
   resetValidation,
+  disableButton,
 } from "../scripts/validation.js";
 import "./index.css";
 import Api from "../utils/Api.js";
@@ -45,7 +46,10 @@ const avatarLinkInput = editAvatarModal.querySelector("#profile-avatar-input");
 const avatarForm = editAvatarModal.querySelector(".modal__avatar-form");
 
 const deleteModal = document.querySelector("#delete-modal");
-const deleteModalCloseBtn = deleteModal.querySelector(".modal__close-btn");
+const deleteModalCloseBtn = deleteModal.querySelector(
+  ".modal__delete-close-btn"
+);
+const deleteModalCancelBtn = deleteModal.querySelector(".modal__cancel-btn");
 const deleteForm = deleteModal.querySelector(".modal__delete-form");
 
 const cardTemplate = document
@@ -111,6 +115,10 @@ function getCardElement(data) {
   );
 
   deleteModalCloseBtn.addEventListener("click", () => {
+    closeModal(deleteModal);
+  });
+
+  deleteModalCancelBtn.addEventListener("click", () => {
     closeModal(deleteModal);
   });
 

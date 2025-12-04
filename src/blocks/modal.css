@@ -62,18 +62,6 @@
   border: 1px #21212166 solid;
 }
 
-.modal__avatar-input {
-  display: block;
-  box-sizing: border-box;
-  font-size: 20px;
-  line-height: 1;
-  margin: 8px 0 32px;
-  width: 100%;
-  padding: 16px 12px;
-  border-radius: 8px;
-  border: 1px #21212166 solid;
-}
-
 .modal__input:hover {
   border: 1px #212121 solid;
   cursor: pointer;
@@ -103,6 +91,10 @@
   font-weight: 500;
   font-size: 16px;
   color: #212121b2;
+}
+
+.modal__avatar-label {
+  margin: 0 0 32px;
 }
 
 .modal__close-btn {
